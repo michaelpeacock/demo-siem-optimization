@@ -305,3 +305,16 @@ services:
       confluent_regex_ruleTopic: 'regex-rules'
       confluent_regex_filterField: 'sourcetype'
       confluent_regex_regexField: 'event'
+
+  duo:
+    image: confluentinc/cp-server-connect-base:latest
+    hostname: duo
+    container_name: duo
+    user: root
+    depends_on:
+      - broker
+    volumes:
+      - ./spooldir/:/var/spooldir/
+      - ./scripts/:/tmp/scripts/
+    command:
+      - /tmp/scripts/produceDuoData.sh
