@@ -1,4 +1,3 @@
-Timestamp,User,Integration,Factor,Result,Reason,2FA Device Name,Access Device IP,Access Device Country,Access Device State,Access Device City,Email,Response Time
 2022-01-04 11:38:47 -0500,ksimpkin0@sfgate.com,LastPass,Duo Push,SUCCESS,"",347-838-4569,25.107.92.29,US,NY,Flushing,blorenzin0@house.gov,2.69
 2022-01-04 11:38:47 -0500,mpridden1@engadget.com,LastPass,Duo Push,SUCCESS,"",231-157-7639,232.152.29.231,US,MI,Muskegon,sphilipp1@google.de,1.47
 2022-01-04 11:38:47 -0500,jdibsdale2@canalblog.com,,Duo Push,SUCCESS,"",785-854-2145,128.73.187.157,US,KS,Topeka,cmushet2@hubpages.com,14.46
