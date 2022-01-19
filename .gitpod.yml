@@ -25,17 +25,17 @@ ports:
 
   # Confluent Control Center
   - port: 9021
-    onOpen: open-preview
+    onOpen: open-browser
     visibility: public
 
   # Kibana UI
   - port: 5601
-    onOpen: open-preview
+    onOpen: open-browser
     visibility: public
 
   # Confluent Sigma UI
   - port: 8080
-    onOpen: open-preview
+    onOpen: open-browser
     visibility: public
 
   # zookeeper
@@ -68,4 +68,14 @@ ports:
   
   # Splunk Event Generator
   - port: 9500
+    onOpen: ignore
+
+  # ignore a bunch of ports
+  - port: 3333
+    onOpen: ignore
+
+  - port: 6379
+    onOpen: ignore
+
+  - port: 9000-10000
     onOpen: ignore
