@@ -25,17 +25,17 @@ ports:
 
   # Confluent Control Center
   - port: 9021
-    onOpen: open-browser
-    visibility: public
-
-  # Kibana UI
-  - port: 5601
-    onOpen: open-browser
+    onOpen: notify
     visibility: public
 
   # Confluent Sigma UI
   - port: 8080
-    onOpen: open-browser
+    onOpen: notify
+    visibility: public
+
+  # Kibana UI
+  - port: 5601
+    onOpen: notify
     visibility: public
 
   # zookeeper
@@ -46,16 +46,12 @@ ports:
   - port: 9092
     onOpen: ignore
     
-  # Confluent Server (REST)
+  # Splunk (why?)
   - port: 8090
     onOpen: ignore
     
   # Schema Registry
   - port: 8081
-    onOpen: ignore
-
-  # Confluent REST Proxy
-  - port: 8082
     onOpen: ignore
     
   # Kafka Connect
@@ -70,12 +66,30 @@ ports:
   - port: 9500
     onOpen: ignore
 
-  # ignore a bunch of ports
+  # Splunk universal forwarder
   - port: 3333
     onOpen: ignore
 
+  # Splunk event generator
   - port: 6379
     onOpen: ignore
 
-  - port: 9000-10000
+  # Splunk
+  - port: 8000
+    onOpen: ignore
+
+  # Broker JMX metrics
+  - port: 9101
+    onOpen: ignore
+
+  # Connect receives from Splunk Universal Forwarder
+  - port: 9997
+    onOpen: ignore
+
+  # Connect (why?)
+  - port: 5140
+    onOpen: ignore
+
+  # Confluent REST Proxy (unnecessary?)
+  - port: 8082
     onOpen: ignore
