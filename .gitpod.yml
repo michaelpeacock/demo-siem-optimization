@@ -3,7 +3,7 @@ github:
     # enable for the default branch (defaults to true)
     master: true
     # enable for all branches in this repo (defaults to false)
-    branches: true
+    branches: false
     # enable for pull requests coming from this repo (defaults to true)
     pullRequests: true
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
@@ -23,6 +23,8 @@ tasks:
 
 ports:
 
+### Graphical User Interface (GUI) Apps
+
   # Confluent Control Center
   - port: 9021
     onOpen: notify
@@ -38,58 +40,69 @@ ports:
     onOpen: notify
     visibility: public
 
+  # Splunk UI
+  - port: 8000
+    onOpen: notify
+    visibility: public
+
+### Backend Services
+
   # zookeeper
   - port: 2181
     onOpen: ignore
     
-  # Confluent Server (broker)
+  # Confluent Server (Kafka broker)
   - port: 9092
     onOpen: ignore
     
-  # Splunk (why?)
-  - port: 8090
-    onOpen: ignore
-    
-  # Schema Registry
+  # Confluent Schema Registry
   - port: 8081
     onOpen: ignore
-    
-  # Kafka Connect
-  - port: 8083
-    onOpen: ignore
-    
-  # ksqlDB
+
+  # Confluent ksqlDB
   - port: 8088
     onOpen: ignore
-  
+
+  # Kafka Connect REST endpoint
+  - port: 8083
+    onOpen: ignore
+
+  # Connect receives data from Splunk Universal Forwarder
+  - port: 9997
+    onOpen: ignore
+
+  # Connect receives syslog data
+  - port: 5140
+    onOpen: ignore
+
+  # Splunk HTTP Event Collector (HEC)
+  - port: 8090
+    onOpen: ignore
+
+  # Splunk Universal Forwarder
+  - port: 3333
+    onOpen: ignore
+
   # Splunk Event Generator
   - port: 9500
     onOpen: ignore
 
-  # Splunk universal forwarder
-  - port: 3333
-    onOpen: ignore
-
-  # Splunk event generator
+  # Splunk Event Generator (Redis cache)
   - port: 6379
-    onOpen: ignore
-
-  # Splunk
-  - port: 8000
-    onOpen: ignore
-
-  # Broker JMX metrics
-  - port: 9101
-    onOpen: ignore
-
-  # Connect receives from Splunk Universal Forwarder
-  - port: 9997
-    onOpen: ignore
-
-  # Connect (why?)
-  - port: 5140
     onOpen: ignore
 
   # Confluent REST Proxy (unnecessary?)
   - port: 8082
+    onOpen: ignore
+
+  # ElasticSearch
+  - port: 9200
+    onOpen: ignore
+
+  # ElasticSearch
+  - port: 9300
+    onOpen: ignore
+
+  # Broker JMX metrics
+  - port: 9101
     onOpen: ignore
