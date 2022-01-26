@@ -91,10 +91,6 @@ ports:
   - port: 6379
     onOpen: ignore
 
-  # Confluent REST Proxy (unnecessary?)
-  - port: 8082
-    onOpen: ignore
-
   # ElasticSearch
   - port: 9200
     onOpen: ignore
