@@ -1,4 +1,5 @@
-# Aggregating Data with ksqlDB
+# Calculating bandwidth totals per host per hour with ksqlDB
+
 ## Using Zeek Conn data to calculate bandwidth totals per host per hour
 
 ### A SIEM is a very expensive calculator - perform calculations upstream and send the results to the reporting layer.
