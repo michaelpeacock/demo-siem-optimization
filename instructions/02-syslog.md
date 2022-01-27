@@ -1,4 +1,5 @@
-# Analyzing Syslog data with ksqlDB
+# Analyze Syslog Data in Real Time with ksqlDB
+
 ### Collecting ```sshd``` syslog events
 If your Docker host is publicly facing and allows SSH connections from anywhere, a fun exercise can be to see who's trying to hack your host.
 

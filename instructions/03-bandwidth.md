@@ -1,4 +1,4 @@
-# Calculating bandwidth totals per host per hour with ksqlDB
+# Calculate Hourly Bandwidth Usage By Host with ksqlDB
 
 ## Using Zeek Conn data to calculate bandwidth totals per host per hour
 

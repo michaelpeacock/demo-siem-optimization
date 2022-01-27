@@ -1,4 +1,4 @@
-### Filter on invalid SSL transactions & enrich new data stream
+### Filter SSL Transactions and Enrich with Geospatial Data
 The ```SSL``` topic from Zeek has information about the TCP connection in SSL/TLS exchanges, and the ```x509``` topic from Zeek has data about the certificate itself.
 
 Join these two data sources to create a derived data stream with IP addresses and ports but also Certificate Authority, certificate creation and expiration information. Enrich this data stream with Geo IP information as well as network ownership via ASN records.

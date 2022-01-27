@@ -1,4 +1,4 @@
-## Matching hostnames in a watchlist against streaming DNS data
+## Match Hostnames in a Watchlist Against Streaming DNS Data
 
 A sample csv file of known Ad servers is in the `ad_hosts.csv` file included in this repository.
 
