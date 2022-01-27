@@ -159,6 +159,7 @@ services:
     volumes:
       - ./ksqldb_scripts:/ksqldb_scripts
 
+  # See https://hub.docker.com/r/bertisondocker/zeek-tcpreplay-kafka
   zeek-streamer:
     image: bertisondocker/zeek-tcpreplay-kafka:latest
     container_name: zeek-streamer
