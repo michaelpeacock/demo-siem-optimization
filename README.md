@@ -1,38 +1,49 @@
-# CP-SIEM
-## Starting up
-### Choosing your Docker host environment
+# Optimize SIEM With Confluent
 
-- This demo (currently) runs 16 different Docker containers, so this might be too much for your laptop.
-- Testing has been done on a c4.4xlarge EC2 instance, with good performance (probably over-provisioned).
-- It's recommended to run ```docker system  prune -a``` before running ```docker-compose```
+The examples in this repository give you hands-on experience optimizing Security Information and Event Management (SIEM) solutions using Confluent. Each tutorial illustrates how to use Confluent to improve the response to a common cybersecurity scenario.
 
-### Configuring the demo environment
+## Hands-On in Your Browser
 
-- Running a really big pcap [optional]
-  - The packet capture file included in this repository features DNS exfiltration (among other things), but will repeat itself after a few minutes.  This can be tiresome during a live demo or workshop.
-  - Run ```python3 scripts/get_pcap.py``` script to download a 1GB/1hr playback pcap.
- 
+This demo runs best using Gitpod. Gitpod uses your existing git service account (GitHub, Gitlab, or BitBucket) for authentication. See the [gitpod tips](./instructions/gitpod-tips.md) to get acquainted with gitpod.
 
-- Running NOT on ```localhost``` 
-  - You need to advertise the correct public DNS hostname for the ksqlDB server to ensure that the ksqlDB editor in Confluent Control Center works without error. 
-  - Run the ```./scripts/edit-docker-compose.sh``` script to change the ```localhost``` value in  ```CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL: "http://localhost:8088"``` to whatever the public DNS hostname is for your EC2 instance.
-  - Note: This only works in AWS (AFAIK)
-  
-### Starting the demo
-- Cross your fingers
-- Run ```docker-compose up -d```
+**Launch a workspace** to get hands-on with the labs:
+- (if demo not in confluentinc yet) https://gitpod.io/#https://github.com/chuck-confluent/demo-siem-optimization
+- https://gitpod.io/#https://github.com/confluentinc/demo-siem-optimization
 
-If you are using sudo with docker-compose then you will likely need to use the -E option to sudo so it inherits your environmental variables so the last command will become ```sudo -E docker-compose up -d```
+If you want to run loclly or in a different environment, see the [appendix](./instructions/appendix.md).
 
-### Running the Demo
-- This demo is a combination of three different reposistories:
-  - [JohnnyMirza/confluent_splunk_demo](https://github.com/JohnnyMirza/confluent_splunk_demo)
-  - [wlaforest/ConfluentCyberDemo](https://github.com/wlaforest/ConfluentCyberDemo)
-  - [berthayes/cp-zeek](https://github.com/berthayes/cp-zeek)
-- Each of these repositories has their own README files and walk-throughs.
-- Some examples using ksqlDB for processing Zeek IDS data are included:
-  - [Analyzing Syslog data with ksqlDB](https://github.com/berthayes/cp-siem/blob/main/syslog.md)
-  - [Calculating bandwidth totals per host per hour](https://github.com/berthayes/cp-siem/blob/main/ksqldb.md)
-  - [Filter on invalid SSL transactions & enrich new data stream](https://github.com/berthayes/cp-siem/blob/main/ssl.md)
-  - [Matching hostnames in a watchlist against streaming DNS data](https://github.com/berthayes/cp-siem/blob/main/watchlist.md)
-- Watch this space for a new walk-through script that incorporates the best parts of all three.
+### Hands-On Lab Instructions
+
+1. [Introduction](./instructions/01-introduction.md)
+2. [Analyze Syslog Data in Real Time with ksqlDB](./instructions/02-syslog.md)
+3. [Calculate Hourly Bandwidth Usage By Host with ksqlDB](./instructions/03-bandwidth.md)
+4. [Match Hostnames in a Watchlist Against Streaming DNS Data](./instructions/04-watchlist.md)
+5. [Filter SSL Transactions and Enrich with Geospatial Data](./instructions/05-ssl.md)
+
+## Facilitator's Guide
+
+Are you a Confluent employee facilitating a hands-on workshop?
+- Check out the [facilitator's guide](./instructions/facilitator-guide.md)
+
+## Demo Only (No Hands-On)
+
+Are you presenting a demonstration to executives and just want everything running right away? 
+- See the [executive demo guide](./instructions/00-executive-demo)
+- Launch a workspace in "demo mode":
+  - https://gitpod.io/#DEMO_MODE=true/https://github.com/confluentinc/demo-siem-optimization
+
+
+
+## References
+
+### Demo Video
+
+- https://www.confluent.io/resources/video/how-to-optimize-your-siem-platforms-with-confluent/
+
+### Executive Brief
+
+- https://assets.confluent.io/m/1eb84018eaad8291/
+
+### Cyber Defense Whitepaper
+
+- https://assets.confluent.io/m/34ffc6b59ead86e5/

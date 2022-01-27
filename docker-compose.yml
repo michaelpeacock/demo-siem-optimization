@@ -159,21 +159,7 @@ services:
     volumes:
       - ./ksqldb_scripts:/ksqldb_scripts
 
-  rest-proxy:
-    image: confluentinc/cp-kafka-rest:latest
-    depends_on:
-      - broker
-      - schema-registry
-    ports:
-      - 8082:8082
-    hostname: rest-proxy
-    container_name: rest-proxy
-    environment:
-      KAFKA_REST_HOST_NAME: rest-proxy
-      KAFKA_REST_BOOTSTRAP_SERVERS: 'broker:29092'
-      KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
-      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
-
+  # See https://hub.docker.com/r/bertisondocker/zeek-tcpreplay-kafka
   zeek-streamer:
     image: bertisondocker/zeek-tcpreplay-kafka:latest
     container_name: zeek-streamer
@@ -265,7 +251,7 @@ services:
     command: 'splunk_eventgen -v generate /opt/splunk-eventgen/default/eventgen.conf'
 
   cyber-sigma-streams:
-    image: michaelpeacock/confluent-sigma:testv1
+    image: michaelpeacock/confluent-sigma:v2_1
     container_name: cyber-sigma-streams
     depends_on:
       - broker
@@ -285,7 +271,7 @@ services:
         sleep infinity
 
   cyber-sigma-regex-ui:
-    image: michaelpeacock/confluent-sigma-regex-ui:testv1
+    image: michaelpeacock/confluent-sigma-regex-ui:v2_1
     container_name: cyber-sigma-regex-ui
     depends_on:
       - broker
