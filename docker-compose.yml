@@ -1,5 +1,5 @@
 ---
-version: '2'
+version: '3'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -63,6 +63,10 @@ services:
       - "8083:8083"
       - "9997:9997"
       - "5140:5140/udp"
+    healthcheck:
+      interval: 10s
+      retries: 20
+      test: curl -f http://localhost:8083 || exit 1
     environment:
       CONNECT_BOOTSTRAP_SERVERS: 'broker:29092'
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
@@ -159,18 +163,17 @@ services:
     volumes:
       - ./ksqldb_scripts:/ksqldb_scripts
 
-  # See https://hub.docker.com/r/bertisondocker/zeek-tcpreplay-kafka
+  # See https://github.com/berthayes/zeek-tcpreplay-kafka
   zeek-streamer:
     image: bertisondocker/zeek-tcpreplay-kafka:latest
     container_name: zeek-streamer
     depends_on:
-      - broker
-      - connect
-      - control-center
-      - ksqldb-server
+      connect:
+        condition: service_healthy
     hostname: zeek-streamer
     entrypoint: /init_dummy.sh
     volumes:
+      - ./scripts/init_dummy.sh:/init_dummy.sh
       - ./pcaps:/pcaps
       - ./local.zeek:/usr/local/zeek/share/zeek/site/local.zeek
       - ./send-to-kafka.zeek:/usr/local/zeek/share/zeek/site/send-to-kafka.zeek

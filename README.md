@@ -10,29 +10,18 @@ This demo runs best using Gitpod. Gitpod uses your existing git service account 
 - (if demo not in confluentinc yet) https://gitpod.io/#https://github.com/chuck-confluent/demo-siem-optimization
 - https://gitpod.io/#https://github.com/confluentinc/demo-siem-optimization
 
-If you want to run loclly or in a different environment, see the [appendix](./instructions/appendix.md).
+If you want to run locally or in a different environment, see the [appendix](./instructions/appendix.md).
 
 ### Hands-On Lab Instructions
 
+Run through entire end-to-end demo to get the big picture. Zoom in on the individual labs to go into more detail.
+
+0. [End-to-End Demo](./instructions/00-executive-demo.md) (long)
 1. [Introduction](./instructions/01-introduction.md)
 2. [Analyze Syslog Data in Real Time with ksqlDB](./instructions/02-syslog.md)
 3. [Calculate Hourly Bandwidth Usage By Host with ksqlDB](./instructions/03-bandwidth.md)
 4. [Match Hostnames in a Watchlist Against Streaming DNS Data](./instructions/04-watchlist.md)
 5. [Filter SSL Transactions and Enrich with Geospatial Data](./instructions/05-ssl.md)
-
-## Facilitator's Guide
-
-Are you a Confluent employee facilitating a hands-on workshop?
-- Check out the [facilitator's guide](./instructions/facilitator-guide.md)
-
-## Demo Only (No Hands-On)
-
-Are you presenting a demonstration to executives and just want everything running right away? 
-- See the [executive demo guide](./instructions/00-executive-demo)
-- Launch a workspace in "demo mode":
-  - https://gitpod.io/#DEMO_MODE=true/https://github.com/confluentinc/demo-siem-optimization
-
-
 
 ## References
 
@@ -47,3 +36,7 @@ Are you presenting a demonstration to executives and just want everything runnin
 ### Cyber Defense Whitepaper
 
 - https://assets.confluent.io/m/34ffc6b59ead86e5/
+
+### Confluent Sigma
+
+- https://github.com/michaelpeacock/kafka-sigma-streams
