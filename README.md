@@ -41,4 +41,4 @@ Run through entire end-to-end demo to get the big picture. Zoom in on the indivi
 
 ### Confluent Sigma
 
-- https://github.com/michaelpeacock/kafka-sigma-streams
+- https://github.com/confluentinc/cyber/tree/master/confluent-sigma
