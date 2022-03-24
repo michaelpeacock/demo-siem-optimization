@@ -263,7 +263,7 @@ services:
         sleep infinity
 
   cyber-sigma-regex-ui:
-    image: michaelpeacock/confluent-sigma-regex-ui:v2_1
+    image: michaelpeacock/confluent-sigma-regex-ui:latest
     container_name: cyber-sigma-regex-ui
     depends_on:
       - broker
