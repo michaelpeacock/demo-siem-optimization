@@ -107,7 +107,7 @@ Back in Gitpod, open Confluent Control Center by launching a new tab for port `9
 
 ### Filter and Enrich the DNS Stream
 
-> Let's use Confluent to optimize your data and look for threats upstream of your SIEM. We're going to use Confluent's stream processing database ksqlDB to filter, enrich, and aggregate these data streams in real-time. 
+> Let's use Confluent to optimize your data and look for threats upstream of your SIEM. We're going to use Confluent's stream processing capability ksqlDB to filter, enrich, and aggregate these data streams in real-time. 
 
 2. Create the `conn_stream` in the KSQL editor.
 
