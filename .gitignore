@@ -2,3 +2,4 @@
 .DS_Store
 /.idea/
 pcaps/edited_syslog.pcap
+pcaps/zeek*

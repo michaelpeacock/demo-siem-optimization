@@ -214,7 +214,7 @@ services:
       - ./splunk/splunk-search/:/opt/splunk/etc/apps/splunk-search
 
   splunk_uf1:
-      image: splunk/universalforwarder:latest
+      image: splunk/universalforwarder:8.2.1
       hostname: splunk_uf1
       container_name: splunk_uf1
       depends_on:
@@ -226,7 +226,7 @@ services:
       volumes:
         - ./splunk/splunk-uf1/:/opt/splunkforwarder/etc/apps/splunk-uf1/
       ports:
-        - 3333:3333
+        - "9997"
 
   splunk_eventgen:
     image: guilhemmarchand/splunk-eventgen:latest
