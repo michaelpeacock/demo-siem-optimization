@@ -220,13 +220,13 @@ services:
       depends_on:
         - connect
       environment:
-        - SPLUNK_START_ARGS=--accept-license
+        - SPLUNK_START_ARGS=--accept-license --answer-yes --no-prompt
         - SPLUNK_PASSWORD=dingdong
         - SPLUNK_APPS_URL=https://raw.githubusercontent.com/JohnnyMirza/confluent_splunk_demo/main/splunk-add-on-for-cisco-asa_410.tgz
       volumes:
         - ./splunk/splunk-uf1/:/opt/splunkforwarder/etc/apps/splunk-uf1/
       ports:
-        - "9997"
+        - "3333"
 
   splunk_eventgen:
     image: guilhemmarchand/splunk-eventgen:latest
