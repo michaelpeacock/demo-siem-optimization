@@ -423,28 +423,16 @@ Back in Gitpod, open Confluent Control Center by launching a new tab for port `9
 
 1. Go to the ksqlDB editor and create the Splunk stream and the filtered cisco_asa stream.
 ```sql
-CREATE STREAM SPLUNK (
-    `event` VARCHAR,
-    `time` BIGINT,
-    `host` VARCHAR,
-    `source` VARCHAR,
-    `sourcetype` VARCHAR,
-    `index` VARCHAR
-) WITH (
-KAFKA_TOPIC='splunk-s2s-events', VALUE_FORMAT='JSON');
+CREATE STREAM SPLUNK
+    WITH (KAFKA_TOPIC='splunk-s2s-events', VALUE_FORMAT='AVRO');
  
-CREATE STREAM CISCO_ASA
-AS SELECT
-    `event`,
-    `source`,
-    `sourcetype`,
-    `index`
-FROM SPLUNK
-WHERE `sourcetype` = 'cisco:asa'
-EMIT CHANGES;
+CREATE STREAM CISCO_ASA AS
+    SELECT * FROM SPLUNK
+    WHERE sourcetype = 'cisco:asa'
+    EMIT CHANGES;
 ```
 
-> With ksqlDB, we will give it a definition of the data types coming from the Splunk Universal Forwarder and then we will filter out all events that are not sourcetype cisco:asa.  In the real world, you would need to be more sophisticated about what you filter, but for this generated data it is effectively just filtering out some internal splunk messages.
+> ksqlDB is able to infer the schemas for the data coming from the Splunk Universal Forwarder. We then filter out all events that are not sourcetype cisco:asa.  In the real world, you would need to be more sophisticated about what you filter, but for this generated data it is effectively just filtering out some internal splunk messages.
 
 > So suppose I know that we have a noisy but benign data producer.  I can go ahead and filter them out as well with this query.
 
