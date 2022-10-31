@@ -88,6 +88,21 @@ services:
     volumes:
       - ./spooldir/:/var/spooldir/
 
+  submit-spooldir-source-adhosts:
+    image: confluentinc/cp-server-connect-base:latest
+    hostname: submit-spooldir-source-adhosts
+    container_name: submit-spooldir-source-adhosts
+    depends_on:
+      connect:
+        condition: service_healthy
+    volumes:
+      - ./scripts/submit-connector.sh:/usr/bin/submit-connector.sh
+      - ./kafka-connect/connectors:/connectors
+    command:
+      - bash
+      - -c
+      - for connector in '/connectors/spooldir-source-adhosts.json' '/connectors/splunk-s2s-source.json' ; do submit-connector.sh $${connector} connect; done
+
   control-center:
     image: confluentinc/cp-enterprise-control-center:latest
     hostname: control-center
@@ -153,13 +168,24 @@ services:
     volumes:
       - ./ksqlDB/queries:/queries
 
-  # See https://github.com/berthayes/zeek-tcpreplay-kafka
-  zeek-streamer:
-    image: bertisondocker/zeek-tcpreplay-kafka:latest
-    container_name: zeek-streamer
+  # Fetch the large zeek pcap if it has not already been done.
+  zeek-download:
+    image: wlaforest/gdown
+    container_name: zeek-download
+    hostname: zeek-download
     depends_on:
       connect:
         condition: service_healthy
+    volumes:
+      - ./zeek:/tmp/down
+    command: gdown.sh 1Mo2cjWx8QFU3oekRLdaeWZztWa0VwF3e zeek_streamer.pcap
+    
+  # See https://github.com/berthayes/zeek-tcpreplay-kafka
+  zeek-streamer:
+    image: wlaforest/zeek-tcpreplay-kafka:latest
+    container_name: zeek-streamer
+    depends_on:
+      - zeek-download
     hostname: zeek-streamer
     entrypoint: /init_dummy.sh
     volumes:
