@@ -390,8 +390,8 @@ Back in Gitpod, open Confluent Control Center by launching a new tab for port `9
       service: dns
     detection:
       query_length:
-        query|re: ^.{50}.*$
-      condition: query_length | count() > 10
+        query|re: ^.{30}.*$
+      condition: query_length | count() > 5
       timeframe: 5s
     ```
 
