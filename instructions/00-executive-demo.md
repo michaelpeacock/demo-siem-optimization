@@ -47,40 +47,30 @@ Back in Gitpod, open Confluent Control Center by launching a new tab for port `9
 
 ### Add the `SyslogSourceConnector`
 
-> Confluent offers a buffet of off-the-shelf connectors to easily get data in or our of event streams.  A standard data source in Cyber defense are system logs (syslog), so lets start capturing that.
-
 1. Navigate to the connect cluster in Confluent Control Center.
+
+> Confluent offers a buffet of off-the-shelf connectors, into the hundreds, to easily get data in or out of event streams. For this demonstration you will see that we already have two running and taking data in.  One is scraping a watch list from a location on the filesystem and another is recieving data from Splunk universal forwarders.  But to give you an idea whats its like we will spin a new one up. A standard data source in Cybersecurity is system logs (syslog), so lets start capturing that.
+
+
 2. Select "add connector"
 3. Select "SyslogSourceConnector"
-
-> If you aren’t familiar with Kafka Connect, it's the easiest way to move data into or out of Confluent. You simply specify a few settings for the external system, and the connect cluster automatically starts the data flowing. No code required.
-
 4. Set `syslog.listener` to `UDP` and `syslog.port` to `5140`.
 
 > All I have to do with this connector is to specify which syslog protocol to use and which port to receive events on.
 
 5. Submit the connector.
 
-> Control center actually generates the configuration and sends it to the Connect cluster's REST API. So you can just as easily automate this using your favorite tool, or use gitops to store the connectors you need.
-
-### Add the `SplunkS2SSourceConnector`
-
->As mentioned earlier, we are a company that has Splunk agents to collecting and sending data straight to Splunk.  In order to take advantage of real-time stream processing, we want to send the data to Confluent instead.  So let's spin up another connector to receive this data.
-
-1. Click "add connector" and select the `SplunkS2SSourceConnector`.
-2. Submit the connector.
-
-> For this one we don’t need to specify anything at all and will just stick with the defaults.
+> Control center actually generates the configuration and sends it to the Connect cluster's REST API. So you can just as easily automate this using your favorite tool, or use gitops to store the connectors you need.  In fact we will actually use the REST API later on to start the sink connectors to send data to Splunk and Elastic
 
 > So at this point let's actually go back and take a quick peek into the topics to see what the data looks like.
 
-3. Inspect the records in the `syslog` topic.
+6. Inspect the records in the `syslog` topic.
 
 > Note that Confluent syslog connector parses and extracts the syslog into a structured format but also includes the raw syslog string as well.  This turns out to be important because many tools in the cyber defense ecosystem understand or want raw syslog and this way it doesn’t need to be reconstructed
 
-4. Inspect the records in the `splunk-s2s-events` topic.
+7. Inspect the records in the `splunk-s2s-events` topic.
 
-> Take a quick peek at the data coming from the splunk universal forwarder. You can see that it's doing something similar to the syslog connector. It has some structure and the original Splunk data.
+> Take a quick peek at the data coming from the splunk universal forwarder. You can see that it's doing something similar to the syslog connector. It has some structure and the original Splunk data from the forwarder.
 
 ### View Network Metadata from Zeek
 
