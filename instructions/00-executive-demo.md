@@ -349,12 +349,12 @@ Back in Gitpod, open Confluent Control Center by launching a new tab for port `9
 ```sql
 
 CREATE STREAM SPLUNK (
-  `event` VARCHAR,
-  `time` BIGINT,
-  `host` VARCHAR,
-  `source` VARCHAR,
-  `sourcetype` VARCHAR,
-  `index` VARCHAR
+  event VARCHAR,
+  time BIGINT,
+  host VARCHAR,
+  source VARCHAR,
+  sourcetype VARCHAR,
+  index VARCHAR
 ) WITH (
   KAFKA_TOPIC='splunk-s2s-events', VALUE_FORMAT='JSON');
  
@@ -373,12 +373,12 @@ CREATE STREAM CISCO_ASA AS
     CREATE STREAM CISCO_ASA_FILTER_106023
     WITH (KAFKA_TOPIC='CISCO_ASA_FILTER_106023', PARTITIONS=1, REPLICAS=1, VALUE_FORMAT='AVRO')
     AS SELECT
-        SPLUNK.`event` `event`,
-        SPLUNK.`source` `source`,
-        SPLUNK.`sourcetype` `sourcetype`,
-        SPLUNK.`index` `index`
+        SPLUNK.event,
+        SPLUNK.source,
+        SPLUNK.sourcetype,
+        SPLUNK.index
     FROM SPLUNK SPLUNK
-    WHERE ((SPLUNK.`sourcetype` = 'cisco:asa') AND (NOT (SPLUNK.`event` LIKE '%ASA-4-106023%')))
+    WHERE ((SPLUNK.sourcetype = 'cisco:asa') AND (NOT (SPLUNK.event LIKE '%ASA-4-106023%')))
     EMIT CHANGES;
     ```
 > Note that while I’m filtering out in the derived stream, the original stream has all the raw data in it.  If I was required for compliance to hold on to this I could do so in a very cost effective way in Confluent using tiered storage.  In this case data over a certain age will go into S3 compatible storage, but the refined and much smaller data set can be sent to your SIEM.  With Confluent you can always rewind the original data stream (as long as you've defined a retention period) and reprocess it later if you realize that you want to adjust your rules. 
