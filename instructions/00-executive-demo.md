@@ -347,8 +347,16 @@ Back in Gitpod, open Confluent Control Center by launching a new tab for port `9
 
 1. Go to the ksqlDB editor and create the Splunk stream and the filtered cisco_asa stream.
 ```sql
-CREATE STREAM SPLUNK
-    WITH (KAFKA_TOPIC='splunk-s2s-events', VALUE_FORMAT='AVRO');
+
+CREATE STREAM SPLUNK (
+  `event` VARCHAR,
+  `time` BIGINT,
+  `host` VARCHAR,
+  `source` VARCHAR,
+  `sourcetype` VARCHAR,
+  `index` VARCHAR
+) WITH (
+  KAFKA_TOPIC='splunk-s2s-events', VALUE_FORMAT='JSON');
  
 CREATE STREAM CISCO_ASA AS
     SELECT * FROM SPLUNK
