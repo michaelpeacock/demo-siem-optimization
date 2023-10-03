@@ -22,8 +22,8 @@ services:
       - "9101:9101"
     healthcheck:
       test: [ "CMD-SHELL", "kafka-topics --list --bootstrap-server localhost:9092" ]
-      interval: 10s
-      timeout: 5s
+      interval: 30s
+      timeout: 15s
       retries: 3
     environment:
       KAFKA_BROKER_ID: 1
@@ -182,7 +182,8 @@ services:
     platform: linux/amd64
     container_name: zeek-streamer
     depends_on:
-      - broker
+      broker:
+        condition: service_healthy
     hostname: zeek-streamer
     entrypoint: /init_dummy.sh
     volumes:
