@@ -1,18 +1,23 @@
 # Optimize SIEM With Confluent
 
-The examples in this repository give you hands-on experience optimizing Security Information and Event Management (SIEM) solutions using Confluent. Each tutorial illustrates how to use Confluent to improve the response to a common cybersecurity scenario.
+The examples in this repository give you hands-on experience optimizing Security Information and Event Management (SIEM)
+solutions using Confluent. Each tutorial illustrates how to use Confluent to improve the response to a common 
+cybersecurity scenario.
 
-## Hands-On in Your Browser
+## Starting up the environemnt
 
-This demo runs best using Gitpod. Gitpod uses your existing git service account (GitHub, Gitlab, or BitBucket) for authentication. See the [gitpod tips](./instructions/gitpod-tips.md) to get acquainted with gitpod.
+This demonstration currently only runs on AMD64 platform Linux and requires docker and docker-compose to be installed.
+Because there are so many components running (Confluent Platform, zeek, Elastic, Confluent Sigma, and Splunk) you will 
+want a fairly beefy box.  On AWS a m4.xlarge should do the trick.
 
-**Launch a workspace** to get hands-on with the labs:
-- https://gitpod.io/#https://github.com/confluentinc/demo-siem-optimization
+To run the demonstration clone this repository locally. If you are running this off a remote server you will need to 
+edit the docker-compose.yml to put the correct host name for the value `CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL` 
+in the `control-center` section. 
 
-If you want to launch a workspace that **automatically submits all connectors**, use this link instead:
-- https://gitpod.io/#SUBMIT_CONNECTORS=true/https://github.com/confluentinc/demo-siem-optimization
+run docker-compose up -d
 
-If you want to run locally or in a different environment, see the [appendix](./instructions/appendix.md).
+If you are using sudo with docker-compose then you will likely need to use the -E option to sudo so it inherits your 
+environmental variables so the command will become ```sudo -E docker-compose up -d```
 
 ### Hands-On Lab Instructions
 
@@ -41,6 +46,5 @@ Run through entire end-to-end demo to get the big picture. Zoom in on the indivi
 
 ### Confluent Sigma
 
-
-- https://github.com/confluentinc/cyber/tree/master/confluent-sigma
+- https://github.com/confluentinc/confluent-sigma
 
