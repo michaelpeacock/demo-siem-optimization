@@ -168,7 +168,7 @@ services:
       - connect
       - ksqldb-server
     entrypoint: /bin/sh
-    tty: true
+    tty: 'true'
     volumes:
       - ./ksqlDB/queries:/queries
 
@@ -204,7 +204,7 @@ services:
       bootstrap.memory_lock: true
       discovery.type: single-node
       ELASTIC_PASSWORD: es_pass
-      xpack.security.enabled: false
+      xpack.security.enabled: 'false'
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.3.3
