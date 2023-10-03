@@ -228,6 +228,7 @@ services:
 
   splunk:
     image: splunk/splunk:latest
+    platform: linux/amd64
     container_name: splunk
     hostname: splunk
     environment:
@@ -244,6 +245,7 @@ services:
 
   splunk_uf1:
       image: splunk/universalforwarder:8.2.1
+      platform: linux/amd64
       hostname: splunk_uf1
       container_name: splunk_uf1
       depends_on:
