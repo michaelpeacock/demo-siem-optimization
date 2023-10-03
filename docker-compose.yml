@@ -2,7 +2,7 @@
 version: '3'
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:7.5.0
     hostname: zookeeper
     container_name: zookeeper
     ports:
@@ -12,7 +12,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   broker:
-    image: confluentinc/cp-server:latest
+    image: confluentinc/cp-server:7.5.0
     hostname: broker
     container_name: broker
     depends_on:
@@ -47,7 +47,8 @@ services:
     hostname: schema-registry
     container_name: schema-registry
     depends_on:
-      - broker
+      broker:
+        condition: service_healthy
     ports:
       - "8081:8081"
     environment:
@@ -60,8 +61,10 @@ services:
     container_name: connect
     user: root
     depends_on:
-      - broker
-      - schema-registry
+      broker:
+        condition: service_healthy
+      schema-registry:
+        condition: service_started
     ports:
       - "8083:8083"
       - "9997:9997"
@@ -98,7 +101,8 @@ services:
     hostname: submit-spooldir-source-adhosts
     container_name: submit-spooldir-source-adhosts
     depends_on:
-      - connect
+      connect:
+        condition: service_healthy
     volumes:
       - ./scripts/submit-connector.sh:/usr/bin/submit-connector.sh
       - ./kafka-connect/connectors:/connectors
@@ -175,6 +179,7 @@ services:
   # See https://github.com/berthayes/zeek-tcpreplay-kafka
   zeek-streamer:
     image: wlaforest/zeek-tcpreplay-kafka:2.0
+    platform: linux/amd64
     container_name: zeek-streamer
     depends_on:
       - broker
