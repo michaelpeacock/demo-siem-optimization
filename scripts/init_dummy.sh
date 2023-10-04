@@ -19,7 +19,7 @@ connectmac=$(arp -a | grep connect | awk {'print $4'})
 input="/pcaps/syslog.pcap"
 output="/pcaps/edited_syslog.pcap"
 
-echo "\n$mysubnet\n$connectip\n$connectmac\n"
+echo "my subnet - $mysubnet kafka connect ip - $connectip connect mac address $connectmac\n"
 
 echo "creating /pcaps/edited_syslog.pcap"
 /usr/bin/tcprewrite  \
