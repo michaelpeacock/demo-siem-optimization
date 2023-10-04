@@ -24,7 +24,7 @@ services:
       test: [ "CMD-SHELL", "kafka-topics --list --bootstrap-server localhost:9092" ]
       interval: 30s
       timeout: 15s
-      retries: 3
+      retries: 10
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
@@ -70,7 +70,8 @@ services:
       - "9997:9997"
       - "5140:5140/udp"
     healthcheck:
-      interval: 10s
+      interval: 15s
+      timeout: 15s
       retries: 20
       test: curl -f http://localhost:8083 || exit 1
     environment:
@@ -184,6 +185,8 @@ services:
     depends_on:
       broker:
         condition: service_healthy
+      connect:
+        condition: service_healthy
     hostname: zeek-streamer
     entrypoint: /init_dummy.sh
     volumes:
@@ -196,6 +199,11 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
     container_name: elasticsearch
+    depends_on:
+      broker:
+        condition: service_healthy
+      connect:
+        condition: service_healthy
     healthcheck:
       start_period: 10s
       interval: 10s
@@ -214,6 +222,8 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.3.3
+    depends_on:
+      - elasticsearch
     container_name: kibana
     restart: always
     healthcheck:
@@ -234,6 +244,11 @@ services:
 
   splunk:
     image: splunk/splunk:latest
+    depends_on:
+      broker:
+        condition: service_healthy
+      connect:
+        condition: service_healthy    
     platform: linux/amd64
     container_name: splunk
     hostname: splunk
