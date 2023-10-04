@@ -7,6 +7,6 @@ logsource:
   service: dns
 detection:
   query_length:
-    query|re: ^.{60}.*$
+    query|re: ^.{40}.*$
   condition: query_length | count() > 10
   timeframe: 10s
