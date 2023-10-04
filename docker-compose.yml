@@ -191,7 +191,6 @@ services:
     entrypoint: /init_dummy.sh
     volumes:
       - ./scripts/init_dummy.sh:/init_dummy.sh
-      - ./pcaps:/pcaps
       - ./zeek:/usr/local/zeek/share/zeek/site
     cap_add:
       - NET_ADMIN
