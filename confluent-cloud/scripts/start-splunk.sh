@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source settings.env
+
+### Wait for Connect to be ready
+echo -n 'Waiting for Connect...' 
+./scripts/wait-for-endpoint.sh http://localhost:8083
+echo '...Connect is ready!'
+
+### Start Splunk components
+echo "Starting the Splunk source connector..."
+../kafka-connect/submit-connector.sh ../kafka-connect/connectors/splunk-s2s-source.json
+
+echo "Starting the Splunk universal forwarder..."
+docker compose up splunk_uf1 -d
+
+echo "Starting the Splunk event generator..."
+docker compose up splunk_eventgen -d
+
+echo "Starting the Splunk UI..."
+docker compose up splunk -d
+
+### need to wait for the splunk endpoint
+echo "Starting the Splunk sink connector..."
+../kafka-connect/submit-connector.sh ../kafka-connect/connectors/splunk-sink.json
+../kafka-connect/submit-connector.sh ../kafka-connect/connectors/splunk-sink-preaggregated.json
