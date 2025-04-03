@@ -5,22 +5,76 @@ solutions using Confluent. Each tutorial illustrates how to use Confluent to imp
 cybersecurity scenario.
 
 ## Starting up the environment
+You can run the demo with Confluent Cloud or Confluent Platform. When running with Confluent Cloud, there are still some self-managed components that will run which are highlighted below.
 
-This demonstration currently only runs on AMD64 platform Linux and requires docker and docker-compose to be installed.
-Because there are so many components running (Confluent Platform, zeek, Elastic, Confluent Sigma, and Splunk) you will 
-want a fairly beefy box.  On AWS a m4.xlarge should do the trick.
+1. Confluent Cloud
 
-To run the demonstration clone this repository locally. If you are running this off a remote server you will need to 
-edit the docker-compose.yml to put the correct host name for the value `CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL` 
-in the `control-center` section, or alternatively, `export CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL="http://your-server.com:8088"`
-before running `docker-compose`.
+    You will need to create your Confluent Cloud environment prior to running the demo. Once created, reference the environment to get the name, brokers, API keys, and Schema Registry information.
 
-run docker-compose up -d
+    In the confluent-cloud directory, update the `settings.env` file.
 
-If you are using sudo with docker-compose then you will likely need to use the -E option to sudo so it inherits your 
-environmental variables so the command will become ```sudo -E docker-compose up -d```
+    ```bash
+    export CLUSTER_ID=<your-cluster-id>
+    export BOOTSTRAP_SERVERS=<your-bootstrap-servers>
+    export SECURITY_PROTOCOL=SASL_SSL
+    export SASL_MECHANISMS=PLAIN
+    export SASL_USERNAME=<your-api-key>
+    export SASL_PASSWORD=<your-api-secret>
+    export SASL_JAAS_CONFIG='org.apache.kafka.common.security.plain.PlainLoginModule required username="'${SASL_USERNAME}'" password="'${SASL_PASSWORD}'";'
 
-### Hands-On Lab Instructions
+    export BASIC_AUTH_CREDENTIALS_SOURCE=USER_INFO
+    export SCHEMA_REGISTRY_BASIC_AUTH_USER_INFO=<your-schema-registry-api-key>:<your-schema-registry-api-secret>
+    export SCHEMA_REGISTRY_URL=<your-schema-registry-url>
+    ```
+
+    The following components will run locally (self-managed):
+    * Connect
+    * Control Center (optional but good to launch connectors)
+    * Syslog Streamer
+    * Zeek Streamer
+    * Elastic Search / Kibana
+    * Splunk / Splunk Universal Forwarder / Splunk Event Generator
+    * Sigma Streams applications and UI
+
+    To start the demo:
+
+    ```
+    cd confluent-cloud
+
+    ./scripts/start.sh
+    ```
+
+    To stop the demo:
+    ```
+    docker compose down -v
+    ```
+
+2. Confluent Platform
+
+    This demonstration currently only runs on AMD64 platform Linux and requires docker and docker-compose to be installed.
+    Because there are so many components running (Confluent Platform, zeek, Elastic, Confluent Sigma, and Splunk) you will 
+    want a fairly beefy box.  On AWS a m4.xlarge should do the trick.
+
+    To run the demonstration clone this repository locally. If you are running this off a remote server you will need to 
+    edit the docker-compose.yml to put the correct host name for the value `CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL` 
+    in the `control-center` section, or alternatively, `export CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL="http://your-server.com:8088"`
+    before running `docker-compose`.
+
+    To start the demo:
+
+    ```
+    docker-compose up -d
+    ```
+
+    If you are using sudo with docker-compose then you will likely need to use the -E option to sudo so it inherits your 
+    environmental variables so the command will become ```sudo -E docker-compose up -d```
+
+    To stop the demo:
+    ```
+    docker compose down -v
+    ```
+
+## Hands-On Lab Instructions
 
 Run through entire end-to-end demo to get the big picture. Zoom in on the individual labs to go into more detail.
 

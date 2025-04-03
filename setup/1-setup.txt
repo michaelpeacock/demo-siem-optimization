@@ -1,10 +1,10 @@
 
-http://ec2-18-118-166-37.us-east-2.compute.amazonaws.com:9021 C3
-http://ec2-18-118-166-37.us-east-2.compute.amazonaws.com:8080 Sigma
-http://ec2-18-118-166-37.us-east-2.compute.amazonaws.com:8000 Splunk admin/dingdong
-http://ec2-18-118-166-37.us-east-2.compute.amazonaws.com:5601 Elastic
-http://ec2-18-118-166-37.us-east-2.compute.amazonaws.com:3000 Grafana admin/password
-http://ec2-18-118-166-37.us-east-2.compute.amazonaws.com:9090 Prometheus
+localhost:9021 C3
+localhost:8080 Sigma
+localhost:8000 Splunk admin/dingdong
+localhost:5601 Elastic
+localhost:3000 Grafana admin/password
+localhost:9090 Prometheus
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml -f kafka-connect/submit-connectors.yml up -d
 
