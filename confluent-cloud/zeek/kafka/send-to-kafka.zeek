@@ -1,11 +1,11 @@
 @load Seiso/Kafka
 redef Kafka::topic_name = "";
 redef Kafka::kafka_conf = table(
-["bootstrap.servers"] = "pkc-p11xm.us-east-1.aws.confluent.cloud:9092",
+["bootstrap.servers"] = "<updated-by-script>",
 ["security.protocol"] = "SASL_SSL",
 ["sasl.mechanisms"] = "PLAIN",
-["sasl.username"] = "BANOQLZFSJYFGX6I",
-["sasl.password"] = "3O/XI4ThgbCJ35IpnotMHTEbadGBECb7FpnmMtgWILDxHvHn0vAFh8PUS2SOQ7Zt",
+["sasl.username"] = "<updated-by-script>",
+["sasl.password"] = "<updated-by-script>",
 );
 event zeek_init() 
 {

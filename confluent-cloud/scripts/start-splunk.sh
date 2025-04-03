@@ -21,6 +21,10 @@ echo "Starting the Splunk UI..."
 docker compose up splunk -d
 
 ### need to wait for the splunk endpoint
+echo -n 'Waiting for Splunk...' 
+./scripts/wait-for-endpoint.sh http://localhost:8000
+echo '...Splunk is ready!'
+
 echo "Starting the Splunk sink connector..."
 ../kafka-connect/submit-connector.sh ../kafka-connect/connectors/splunk-sink.json
 ../kafka-connect/submit-connector.sh ../kafka-connect/connectors/splunk-sink-preaggregated.json

@@ -14,5 +14,9 @@ docker compose up elasticsearch -d
 echo "Starting Kibana..."
 docker compose up kibana -d
 
+echo -n 'Waiting for Elastic...' 
+./scripts/wait-for-endpoint.sh http://localhost:9200
+echo '...Elastic is ready!'
+
 echo "Starting the Elastic sink connector..."
 ../kafka-connect/submit-connector.sh ../confluent-cloud/connectors/elastic-sink.json

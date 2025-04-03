@@ -6,7 +6,6 @@ CCLOUD_URL=`echo $BOOTSTRAP_SERVERS | cut -d':' -f1`
 BASE_CMD='base64'
 
 if [[ $OSTYPE == "linux"* ]]; then
-    echo "this is a linux machine"
     BASE_CMD="${BASE_CMD} -w 0"
 fi
 
