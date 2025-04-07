@@ -1,0 +1,16 @@
+{
+	"name": "syslog",
+	"config": {
+		"tasks.max": "1",
+		"connector.class": "io.confluent.connect.syslog.SyslogSourceConnector",
+		"syslog.port": "5140",
+		"syslog.listener": "UDP",
+		"topic": "syslog",
+		"confluent.license": "",
+"confluent.topic.bootstrap.servers": "<updated-by-script>", 
+		"confluent.topic.replication.factor": "1",
+"confluent.topic.sasl.jaas.config": "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"<updated-by-script>\" password=\"<updated-by-script>\";",
+		"confluent.topic.security.protocol": "SASL_SSL",
+		"confluent.topic.sasl.mechanism": "PLAIN"
+	}
+}

@@ -1,0 +1,15 @@
+_confluent-monitoring
+conn
+dhcp
+dns
+dns-detection  
+files
+firewalls
+http
+known_services
+splunk-s2s-events
+software
+ssl
+syslog
+weird
+x509

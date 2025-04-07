@@ -1,0 +1,61 @@
+title: Possible DNS exfiltration
+status: test
+description: 'This rule identifies possible data exfiltration through DNS'
+author: Will LaForest
+logsource:
+  product: zeek
+  service: dns
+detection:
+  query_length:
+    query|re: ^.{180}.*$
+  condition: query_length
+
+
+
+title: Possible DNS exfiltration over Time
+status: test
+description: 'This rule identifies possible data exfiltration through DNS'
+author: Will LaForest
+logsource:
+  product: zeek
+  service: dns
+detection:
+  query_length:
+    query|re: ^.{30}.*$
+  condition: query_length | count() > 5
+  timeframe: 5s
+
+
+
+title: Cisco Firewall Rule
+description: This rule is the regex rule test
+id: null
+author: Mike Peacock
+references: null
+logsource:
+  product: splunk
+  service: cisco:asa
+detection:
+  filter_field:
+    sourcetype: cisco:asa
+  event_match:
+    event|re: '^(?<timestamp>\w{3}\s\d{2}\s\d{2}:\d{2}:\d{2})\s(?<hostname>[^\s]+)\s\%ASA-\d-(?<messageID>[^:]+):\s(?<action>[^\s]+)\s(?<protocol>[^\s]+)\ssrc\sinside:(?<src>[0-9\.]+)\/(?<srcport>[0-9]+)\sdst\soutside:(?<dest>[0-9\.]+)\/(?<destport>[0-9]+)'
+  condition: filter_field AND event_match
+kafka: 
+  inputTopic: splunk-s2s-events
+  outputTopic: firewalls
+  customFields:
+    location: edge
+    sourcetype: cisco:asa
+    index: main
+
+
+
+#### old
+
+^(?<timestamp>\w{3}\s\d{2}\s\d{2}:\d{2}:\d{2})\s(?<hostname>[^\s]+)\s\%ASA-\d-(?<messageID>[^:]+):\s(?<action>[^\s]+)\s(?<protocol>[^\s]+)\ssrc\sinside:(?<src>[0-9\.]+)\/(?<srcport>[0-9]+)\sdst\soutside:(?<dest>[0-9\.]+)\/(?<destport>[0-9]+)
+
+firewalls for the topic and attach tags 
+location = edge
+sourcetype = cisco:asa
+index = main
