@@ -5,7 +5,7 @@ solutions using Confluent. Each tutorial illustrates how to use Confluent to imp
 cybersecurity scenario.
 
 ## Starting up the environment
-You can run the demo with Confluent Cloud or Confluent Platform. When running with Confluent Cloud, there are still some self-managed components that will run which are highlighted below.
+You can run the demo with Confluent Cloud, Confluent Platform, or Wapstream. When running with Confluent Cloud, there are still some self-managed components that will run which are highlighted below.
 
 1. Confluent Cloud
 
@@ -73,6 +73,30 @@ You can run the demo with Confluent Cloud or Confluent Platform. When running wi
     ```
     docker compose down -v
     ```
+
+3.  When running the Warpstream based version of the demo simply got to the warpstream directory and use docker-compose to start up:
+
+    ```
+    cd warpstream
+    docker-compose up -d
+    cd ..
+    ```
+
+    Note that this uses Warpstream in playground mode which means that it will only work for 4 hours after starting the images up.
+
+    to stop the demo run 
+
+    To stop the demo:
+
+    ```
+    cd warpstream
+    docker compose down -v
+    ```
+    Note that the demo script depends upon [bin/submit-connector.sh] to add splunk sink connectors and elastic sink connectors.  
+    So in these these instructions we switch to the wapstream directory so that laucnhing the demo with docker-compose will have 
+    the correct context and then we go back to the root diretory for the `submit-connector.sh`.  Also with warpstream you can 
+    use the warpstream management console by running the script `warpstream/bin/warpstream-console-url.sh` which will provide
+    you with the URL to the console for the ephemeral Warpstream control plane instance.
 
 ## Hands-On Lab Instructions
 
